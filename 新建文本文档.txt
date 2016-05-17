@@ -1,0 +1,103 @@
+create table student (
+	id int(11) not null auto_increment,
+	gender varchar(20) not null,
+	address varchar(30) not null,
+	birthday date,
+	PRIMARY KEY(id)
+) engine=MyISAM DEFAULT CHARSET=utf8;
+
+select s.name,s.cname from Student_course as ac left join student as s on s.sno=sc.sno left join course as c on c.cno=sc.cno;
+create table grade
+(
+	gid int primary key ,
+	gname varchar(20) not null,
+	gdescrip varchar(40)
+);
+create table stu
+(
+	sid int primary key,
+	sname varchar(20) not null,
+	sex varchar(4),
+	gid int
+);
+alter table stu add constraint fk_student_gid foreign key (gid) references grade(gid);
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+
+
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration 
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<environments default="development">
+		<environment id="development">
+			<transcationManager type="JDBC" />
+			<dataSource type="POOLED">
+				<property name="driver" value="com.mysql.jdbc.Driver" />
+				<property name="url" value="jdbc:mysql://localhost:3306/mybatis?characterEncoding=utf-8" />
+				<property name="username" value="root" />
+				<property name="password" value="123456" />
+			</dataSource>
+		</environment>
+	</environments>
+</configuration>
+
+
+
+
+create table user(
+	id int(11) not null auto_increment,
+	username varchar(20),
+	sex varchar(10),
+	birthday datetime,
+	address varchar(30),
+	primary key (id) 
+)
+
+
+insert into user values(1,"Blake","男","2015-12-20","shenzhen");
+insert into user values(2,"张明","男","2015-12-20","shenzhen");
+insert into user values(3,"小明","男","2015-12-20","shenzhen");
+insert into user values(4,"王明","男","2015-12-20","shenzhen");
+
+<property name="driver" value="${jdbc.driver}"/>
+			<property name="url" value="${jdbc.url}"/>
+			<property name="username" value="${jdbc.username}"/>
+			<property name="password" value="${password}"/>
+create table orders(
+	id int(11) primary key not null auto_increment,
+	user_id int(11) not null comment '下单用户id0',
+	number varchar(32) not null comment '订单号',
+	createtime datetime not null comment '创建订单时间',
+	note varchar(100)
+)
+
+create table orderdetail(
+	id int(11) primary key not null auto_increment,
+	orders_id int(11) not null comment '订单id',
+	items_id int(11) not null comment '商品',
+	items_num int(11) not null comment '商品购买数量'
+)
+
+create table items(
+	id int(11) primary key not null auto_increment,
+	name varchar(32) not null comment '商品名称',
+	price float(10,1) not null comment '商品定价',
+	detail text comment '商品描述',
+	pic varchar(512) comment '商品图片',
+	createtime datetime comment '生产日期'
+)
+alter table orders add constraint FK_ID foreign key(user_id) REFERENCES user(id)
+alter table orderdetail add constraint detail_order foreign key(orders_id ) REFERENCES orders(id)
+alter table orderdetail add constraint detail_items foreign key(items_id ) REFERENCES items(id)
+
+
+
+core java java concurrency in practice
+
+
